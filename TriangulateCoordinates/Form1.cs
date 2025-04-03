@@ -42,7 +42,7 @@ namespace TriangulateCoordinates
                     if (inliers.Count > 0)
                     {
                         PointF center = CalculateCentroid(inliers);
-                        Console.WriteLine($"Adjusted Center Coordinate: ({center.X}, {center.Y})" + " Outlier size: (any long or lat above the averagegreater than) " + outLierSize.ToString());
+                        Console.WriteLine($"Adjusted Center Coordinate: ({center.X}, {center.Y})" + " Outlier size: (any long or lat above the average greater than) " + outLierSize.ToString());
                         MessageBox.Show($"Adjusted Center Coordinate: ({center.X}, {center.Y})" + " Outlier size: (any long or lat above the average greater than) " + outLierSize.ToString());
                     }
                     else
