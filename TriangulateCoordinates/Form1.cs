@@ -13,6 +13,7 @@ namespace TriangulateCoordinates
         {
             InitializeComponent();
         }
+        private float outLierSize = 10f;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -23,7 +24,7 @@ namespace TriangulateCoordinates
                 List<PointF> coordinates = ReadCoordinatesFromFile(filePath);
                 if (coordinates.Count > 0)
                 {
-                    List<PointF> outliers = FindOutliers(coordinates, 10);
+                    List<PointF> outliers = FindOutliers(coordinates, outLierSize);
                     List<PointF> inliers = coordinates.Except(outliers).ToList();
 
                     if (outliers.Count > 0)
@@ -38,8 +39,8 @@ namespace TriangulateCoordinates
                     if (inliers.Count > 0)
                     {
                         PointF center = CalculateCentroid(inliers);
-                        Console.WriteLine($"Adjusted Center Coordinate: ({center.X}, {center.Y})");
-                        MessageBox.Show($"Adjusted Center Coordinate: ({center.X}, {center.Y})", "Triangulation Result");
+                        Console.WriteLine($"Adjusted Center Coordinate: ({center.X}, {center.Y})" + " Outlier size: (any long or lat greater than) " + outLierSize.ToString());
+                        MessageBox.Show($"Adjusted Center Coordinate: ({center.X}, {center.Y})" + " Outlier size: (any long or lat greater than) " + outLierSize.ToString());
                     }
                     else
                     {
