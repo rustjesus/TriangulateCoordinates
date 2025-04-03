@@ -34,6 +34,9 @@ namespace TriangulateCoordinates
                         {
                             Console.WriteLine($"({point.X}, {point.Y})");
                         }
+
+                        // Output outliers to the LastOutliersOutput.txt file
+                        WriteOutliersToFile(outliers);
                     }
 
                     if (inliers.Count > 0)
@@ -84,6 +87,22 @@ namespace TriangulateCoordinates
         {
             PointF centroid = CalculateCentroid(points);
             return points.Where(p => Math.Abs(p.X - centroid.X) > threshold || Math.Abs(p.Y - centroid.Y) > threshold).ToList();
+        }
+
+        private void WriteOutliersToFile(List<PointF> outliers)
+        {
+            string outliersFilePath = Path.Combine(Application.StartupPath, "LastOutliersOutput.txt");
+
+            using (StreamWriter writer = new StreamWriter(outliersFilePath))
+            {
+                writer.WriteLine("Outliers (Removed from Average):");
+                foreach (var point in outliers)
+                {
+                    writer.WriteLine($"({point.X}, {point.Y})");
+                }
+            }
+
+            Console.WriteLine($"Outliers written to: {outliersFilePath}");
         }
     }
 }
